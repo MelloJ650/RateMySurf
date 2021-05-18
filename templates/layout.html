@@ -14,8 +14,7 @@
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="[[=URL('index')]]">
-          Learn py4web
-          <!-- <img class="logo" width="150" src="images/site_icon.png"> -->
+          RateMySurf
         </a>
 
 
@@ -29,7 +28,10 @@
 
       <div id="the-navbar-menu" class="navbar-menu">
         <div class="navbar-start">
-          [[block page_menu_items]]<!-- individual pages can add menu items here -->[[end]]
+          [[block page_menu_items]]
+          <a class="navbar-item" href="[[=URL('Cowells')]]">Cowells</a>
+          <!-- individual pages can add menu items here -->
+          [[end]]
         </div>
 
         <div class="navbar-end">
@@ -60,12 +62,7 @@
     <!-- beginning of HTML inserted by extending template -->
     [[include]]
     <!-- end of HTML inserted by extending template -->
-    <footer class="footer">
-      <div class="content has-text-centered">
-        Made with <a href="https://py4web.com">py4web</a>.
-        <a href="https://learn-py4web.github.io">Learn py4web!</a>
-      </div>
-    </footer>
+    
   </body>
   <script src="js/sugar.min.js"></script>
   <script src="js/axios.min.js"></script>

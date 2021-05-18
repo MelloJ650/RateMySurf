@@ -30,7 +30,6 @@ from yatl.helpers import A
 from .common import db, session, T, cache, auth, logger, authenticated, unauthenticated, flash
 from py4web.utils.url_signer import URLSigner
 from .models import get_user_email
-
 url_signer = URLSigner(session)
 
 @action('index')
@@ -40,3 +39,17 @@ def index():
         # COMPLETE: return here any signed URLs you need.
         my_callback_url = URL('my_callback', signer=url_signer),
     )
+
+@action('cowells')
+@action.uses(db, auth, 'cowells.html')
+def serv_cowells():
+    return dict()
+    
+@action('add_contact', method=["GET", "POST"])
+@action.uses(db, session, auth.user, 'add_contact.html')
+def add_contact():
+    form = Form(db.contact, csrf_session=session, formstyle=FormStyleBulma)
+    if form.accepted:
+        redirect(URL('index'))
+    return dict(form=form,)
+    pass
