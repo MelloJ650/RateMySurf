@@ -175,7 +175,8 @@ html, body {
 
         <!-- Block to loop through reviews and display them -->
 
-        <div v-for="review in beach_reviews">
+        <!--  .slice().reverse() will display review from newest to old -->
+        <div v-for="review in beach_reviews.slice().reverse()">
           <div class="box mb-5 mr-6">
             <article class="media">
               <figure class="media-left">
