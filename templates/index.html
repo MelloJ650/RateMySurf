@@ -48,7 +48,7 @@ html, body {
         </div>
 
         <div class="navbar-item has dropdown is-hoverable is-link">
-          <a class="navbar-link is-link">
+          <a class="navbar-item is-link">
             <div class="control block has-icons-left">
               <input class="input is-rounded" type="text" placeholder="Search for a beach" v-model="query" @keyup="search" />
               <span class="icon is-small is-left">
@@ -58,8 +58,9 @@ html, body {
           </a>
           <div class="navbar-dropdown">
             <div v-for="r in results">
-              <a class="navbar-item">
-                {{r}}
+              <!--still figuring out how to @click go to the selected beach-->
+              <a class="navbar-item" role="button">
+                {{r }}
               </a>
             </div>
           </div>

@@ -189,8 +189,10 @@ def edit_contact():
     )
 
 @action('search')
-@action.uses(db)
+@action.uses(db, url_signer.verify())
 def search():
+    # id = request.params.get('id')
+    # county_beaches = db(db.beaches.county_reference_id == id).select().as_list()
     beach_list = db(db.beaches).select(db.beaches.beach_name)
 
     search_list = []
