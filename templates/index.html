@@ -46,6 +46,24 @@ html, body {
             </div>
           </div>
         </div>
+
+        <div class="navbar-item has dropdown is-hoverable is-link">
+          <a class="navbar-link is-link">
+            <div class="control block has-icons-left">
+              <input class="input is-rounded" type="text" placeholder="Search for a beach" v-model="query" @keyup="search" />
+              <span class="icon is-small is-left">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </a>
+          <div class="navbar-dropdown">
+            <div v-for="r in results">
+              <a class="navbar-item">
+                {{r}}
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="navbar-end">
@@ -75,6 +93,7 @@ html, body {
 
 <!-- body of index page starts here-->
   <section class="section">
+
     <div class="columns is-mobile">
       <!--Column one starts here-->
 
@@ -331,6 +350,7 @@ html, body {
   let get_likes_url = "[[=XML(get_likes_url)]]";
   let get_user_url = "[[=XML(get_user_url)]]";
   let edit_contact_url = "[[=XML(edit_contact_url)]]";
+  let search_url = "[[=XML(search_url)]]";
 
 </script>
 <script src="js/index.js"></script>

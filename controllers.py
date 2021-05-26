@@ -47,6 +47,7 @@ def index():
         set_liked_url = URL('set_likes', signer=url_signer),
         get_user_url = URL('get_user', signer=url_signer),
         edit_contact_url = URL('edit_contact', signer=url_signer),
+        search_url = URL('search', signer=url_signer),
     )
 
 @action('load_counties')
@@ -186,3 +187,14 @@ def edit_contact():
         review_title=title,
         review=review
     )
+
+@action('search')
+@action.uses(db)
+def search():
+    beach_list = db(db.beaches).select(db.beaches.beach_name)
+
+    search_list = []
+    for beach in beach_list:
+        search_list.append(beach.beach_name)
+
+    return dict(results=search_list)
