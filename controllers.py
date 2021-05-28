@@ -194,9 +194,10 @@ def search():
     # id = request.params.get('id')
     # county_beaches = db(db.beaches.county_reference_id == id).select().as_list()
     beach_list = db(db.beaches).select(db.beaches.beach_name)
+    county_beaches = db(db.beaches).select().as_list()
 
     search_list = []
     for beach in beach_list:
         search_list.append(beach.beach_name)
 
-    return dict(results=search_list)
+    return dict(results=county_beaches)

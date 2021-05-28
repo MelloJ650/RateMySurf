@@ -59,8 +59,8 @@ html, body {
           <div class="navbar-dropdown">
             <div v-for="r in results">
               <!--still figuring out how to @click go to the selected beach-->
-              <a class="navbar-item" role="button">
-                {{r }}
+              <a class="navbar-item" role="button" @click="set_beach(r.beach_id-1)">
+                {{r.beach_name }}
               </a>
             </div>
           </div>
