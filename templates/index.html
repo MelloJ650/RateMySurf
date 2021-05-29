@@ -49,8 +49,10 @@ html, body {
 
         <div class="navbar-item has dropdown is-hoverable is-link">
           <a class="navbar-item is-link">
-            <div class="control block has-icons-left">
-              <input class="input is-rounded" type="text" placeholder="Search for a beach" v-model="query" @keyup="search" />
+            <!-- Implement the search feature ONLY IF "counties" is clicked...-->
+            <!-- ...this should allow counties[] and beaches[] to be populated before search bar appears-->
+            <div v-if="is_county == true" class="control block has-icons-left">
+              <input class="input is-rounded" type="text" placeholder="Search for beaches" v-model="query" @keyup="search" />
               <span class="icon is-small is-left">
                 <i class="fa fa-search"></i>
               </span>

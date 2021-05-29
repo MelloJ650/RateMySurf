@@ -29,6 +29,8 @@ let init = (app) => {
         // Variables for search bar
         query: "",
         results: [],
+        // Variable for search bar to activate on correct instance
+        is_county: false,
     };
 
 
@@ -69,6 +71,8 @@ let init = (app) => {
         axios.get(load_beaches_url, {params: {id: id}}).then(function (response) {
             app.vue.county_beaches = app.enumerate(response.data.county_beaches);
         });
+        // new addition that assists in search bar implementation
+        app.vue.is_county = true;
     };
 
 
