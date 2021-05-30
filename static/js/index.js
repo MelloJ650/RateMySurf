@@ -25,7 +25,12 @@ let init = (app) => {
         uploading: false,
         upload_done: false,
         image_to_post: "",
-        current_modal: ""
+        current_modal: "",
+        // Variables for search bar
+        query: "",
+        results: [],
+        // Variable for search bar to activate on correct instance
+        is_county: false,
     };
 
 
@@ -66,6 +71,8 @@ let init = (app) => {
         axios.get(load_beaches_url, {params: {id: id}}).then(function (response) {
             app.vue.county_beaches = app.enumerate(response.data.county_beaches);
         });
+        // new addition that assists in search bar implementation
+        app.vue.is_county = true;
     };
 
 
@@ -201,6 +208,17 @@ let init = (app) => {
         }
     }
 
+    app.search = function () {
+        if(app.vue.query.length > 1) {
+            axios.get(search_url, {params: {q: app.vue.query}})
+                .then(function (result) {
+                    app.vue.results = result.data.results
+                });
+        } else {
+            app.vue.results = [];
+        }
+    }
+
     // This contains all the methods.
     app.methods = {
         set_add_status: app.set_add_status,
@@ -213,7 +231,8 @@ let init = (app) => {
         get_user_name: app.get_user_name,
         upload_image: app.select_image,
         set_modal: app.set_modal,
-        edit: app.edit
+        edit: app.edit,
+        search: app.search,
     };
 
 
