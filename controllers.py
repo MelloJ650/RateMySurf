@@ -48,6 +48,7 @@ def index():
         get_user_url = URL('get_user', signer=url_signer),
         edit_contact_url = URL('edit_contact', signer=url_signer),
         search_url = URL('search', signer=url_signer),
+        delete_review_url = URL('delete_review', signer=url_signer),
     )
 
 @action('load_counties')
@@ -199,3 +200,11 @@ def search():
     #     search_list.append(beach.beach_name)
 
     return dict(results=county_beaches)
+
+
+@action('delete_review')
+@action.uses(db, url_signer.verify())
+def delete_review():
+    id = request.params.get('id')
+    assert id is not None
+    db(db.reviews.id == id).delete()

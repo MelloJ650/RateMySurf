@@ -278,7 +278,7 @@ html, body {
                         <a class="level-item" @click="">
                           <span class="icon is-small" @click="edit(review._idx, review._state)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                         </a>
-                        <a class="level-item" @click="">
+                        <a class="level-item" @click="delete_review(review._idx)">
                           <span class="icon is-small"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                         </a>
                       </div>
@@ -354,6 +354,7 @@ html, body {
   let get_user_url = "[[=XML(get_user_url)]]";
   let edit_contact_url = "[[=XML(edit_contact_url)]]";
   let search_url = "[[=XML(search_url)]]";
+  let delete_review_url = "[[=XML(delete_review_url)]]";
 
 </script>
 <script src="js/index.js"></script>

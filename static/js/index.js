@@ -217,7 +217,23 @@ let init = (app) => {
         } else {
             app.vue.results = [];
         }
-    }
+    };
+
+
+    app.delete_review = function (review_id) {
+        let id = app.vue.beach_reviews[review_id].id;
+
+        axios.get(delete_review_url, {params: {id: id}}).then(function (response) {
+            for (let index = 0; index < app.vue.beach_reviews.length; index++) {
+                if (app.vue.beach_reviews[index].id === id) {
+                    app.vue.beach_reviews.splice(index, 1);
+                    app.enumerate(app.vue.beach_reviews);
+                    break;
+                }
+            }
+        });
+    };
+
 
     // This contains all the methods.
     app.methods = {
@@ -233,6 +249,7 @@ let init = (app) => {
         set_modal: app.set_modal,
         edit: app.edit,
         search: app.search,
+        delete_review: app.delete_review,
     };
 
 
