@@ -33,6 +33,8 @@ db.define_table(
     'beaches',
     Field('beach_name'),
     Field('beach_id'),
+    Field('beach_longitude'),
+    Field('beach_latitude'),
     Field('county_reference_id', 'reference counties')
 )
 

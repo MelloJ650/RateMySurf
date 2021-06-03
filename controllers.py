@@ -30,8 +30,10 @@ from yatl.helpers import A
 from .common import db, session, T, cache, auth, logger, authenticated, unauthenticated, flash
 from py4web.utils.url_signer import URLSigner
 from .models import get_user_email, get_user
-
 url_signer = URLSigner(session)
+
+
+
 
 @action('index')
 @action.uses(db, auth, 'index.html')
@@ -50,6 +52,8 @@ def index():
         search_url = URL('search', signer=url_signer),
         delete_review_url = URL('delete_review', signer=url_signer),
     )
+    
+
 
 @action('load_counties')
 @action.uses(db, url_signer.verify())
