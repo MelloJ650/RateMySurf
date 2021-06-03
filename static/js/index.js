@@ -25,7 +25,10 @@ let init = (app) => {
         uploading: false,
         upload_done: false,
         image_to_post: "",
-        current_modal: ""
+        current_modal: "",
+        //api var
+        info_api: [],
+        loaded_api: false
     };
 
 
@@ -50,8 +53,76 @@ let init = (app) => {
         });
         return a;
     };
-
-
+    
+        
+    //api
+    app.load_api = function (latitude,longitude) {
+        var today = new Date();
+        //get today's date
+        var tdy= today.getFullYear()+'-'+'0'+(today.getMonth()+1)+'-'+(today.getDate());
+        //get tomorrows date
+        var tmw;
+        //if last day of month, correct to first of next month
+        if(((today.getDate()+1)>31) && ((today.getMonth()+1)%2===1))
+        {
+            //if month double digit don't add 0
+            if (((today.getMonth()+1)+1)>9)
+            {
+                tmw = today.getFullYear()+'-'+((today.getMonth()+1)+1)+'-01';
+            }
+            //add 0
+            else
+            {
+                tmw = today.getFullYear()+'-'+'0'+((today.getMonth()+1)+1)+'-01';
+            }
+        }
+        else
+        {
+            //if month double digit don't add 0
+            if ((today.getMonth()+1)>9)
+            {
+                tmw = today.getFullYear()+'-'+((today.getMonth()+1)+1)+'-'+(today.getDate()+1);
+            }
+            //add 0
+            else
+            {
+                tmw = today.getFullYear()+'-'+'0'+((today.getMonth()+1)+1)+'-'+(today.getDate()+1);
+            }
+        }
+        //get current time
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        //get current hour
+        var cur_hour = today.getHours();
+        //fetch the specific API endpoint for forecast
+        fetch(`https://api.stormglass.io/v2/tide/sea-level/point?lat=${latitude}&lng=${longitude}&start=${tdy}&end=${tmw}`, {
+        headers: {
+            'Authorization': '686ce9b4-c0fc-11eb-9cd1-0242ac130002-686cea2c-c0fc-11eb-9cd1-0242ac130002'
+        }
+        }).then((response) => response.json()).then((jsonData) => {
+            info_tide = (jsonData.data[cur_hour]);
+        });
+        fetch(`https://api.stormglass.io/v2/weather/point?lat=${latitude}&lng=${longitude}&params=${'swellDirection,swellHeight,swellPeriod,waterTemperature,windDirection'}&start=${tdy}&end=${tmw}&source=${'noaa'}`, {
+        headers: 
+        {
+            //Authorization key
+            'Authorization': 'd46c43f8-c327-11eb-8d12-0242ac130002-d46c4484-c327-11eb-8d12-0242ac130002'
+        }
+      
+        }).then((response) => response.json()).then((jsonData) => {
+            info_api = (jsonData.hours[cur_hour]);
+            app.vue.loaded_api = true;
+        });
+    };
+        
+    app.get_api = function (info_type) {
+        if (info_type=="tide")
+        {
+            return(info_tide.sg)
+        }
+        return(info_api[info_type].noaa)
+    };
+        
+        
     app.set_add_status = function (new_status) {
         app.vue.add_mode = new_status;
         app.reset_form();
@@ -124,7 +195,10 @@ let init = (app) => {
         app.vue.selected_image = "";
         app.vue.image_to_post = "";
     };
-
+    
+    app.set_api = function (new_status) {
+        app.vue.loaded_api = new_status;
+    }
 
     app.set_like = function (review_id) {
         let review = app.vue.beach_reviews[review_id];
@@ -213,7 +287,10 @@ let init = (app) => {
         get_user_name: app.get_user_name,
         upload_image: app.select_image,
         set_modal: app.set_modal,
-        edit: app.edit
+        edit: app.edit,
+        load_api: app.load_api,
+        get_api: app.get_api,
+        set_api: app.set_api
     };
 
 
