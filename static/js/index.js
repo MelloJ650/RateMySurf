@@ -136,7 +136,6 @@ let init = (app) => {
     };
         
     app.get_api = function (info_type) {
-        console.log(info_type);
         if (info_type=="tide")
         {
             return(info_tide.sg)

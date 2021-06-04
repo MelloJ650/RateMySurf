@@ -57,10 +57,10 @@ html, body {
             </div>
           </a>
           <div class="navbar-dropdown">
-            <div v-for="r in results">
+            <div v-for="beach in county_beaches">
               <!--still figuring out how to @click go to the selected beach-->
-              <a class="navbar-item" role="button" @click="set_beach(r.beach_id-1)">
-                {{r.beach_name }}
+              <a class="navbar-item" role="button" @click="set_beach(beach._idx); set_api(false); load_api(beach.beach_latitude,beach.beach_longitude);">
+                {{beach.beach_name}}
               </a>
             </div>
           </div>
@@ -118,7 +118,7 @@ html, body {
             <div v-for="beach in county_beaches">
               <li>
                 <transition name="countyMenuAnimate">
-                  <a role="button" @click="set_beach(beach._idx)" v-if="countyMenuAnimate">{{beach.beach_name}}</a>
+                  <a role="button" @click="set_beach(beach._idx); set_api(false); load_api(beach.beach_latitude,beach.beach_longitude);" v-if="countyMenuAnimate">{{beach.beach_name}}</a>
                 </transition>
               </li>
             </div>
@@ -390,10 +390,10 @@ html, body {
         <!--if no beach is selected, display contributors-->
         <div v-else class="content is-medium" style="word-wrap:break-word;">
           <h1>Contributors:</h1>
-          <ul>Joseph Mello</ul>
           <ul>Connor Dawson</ul>
           <ul>Marvin Gomez</ul>
           <ul>Aaron Mandel</ul>
+          <ul>Joseph Mello</ul>
         </div>
       </div>
     </div>
