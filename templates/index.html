@@ -132,7 +132,7 @@ html, body {
         <!-- if not viewing a beach, display image carousel and about info-->
         <div v-if="!current_beach">
           <div class="has-text-centered">
-            <figure class="image is-inline-block">
+            <figure class="image is-inline-block" style="width:85%;">
               <div class="carousel-container">
                 <transition name="slide">
                   <img v-show="slide" :src="carouselImages[imageIndex]" rel="prefetch">
@@ -388,7 +388,7 @@ html, body {
           </div>
         </div>
         <!--if no beach is selected, display contributors-->
-        <div v-else class="content is-large">
+        <div v-else class="content is-medium" style="word-wrap:break-word;">
           <h1>Contributors:</h1>
           <ul>Joseph Mello</ul>
           <ul>Connor Dawson</ul>
@@ -444,8 +444,10 @@ html, body {
 
   .carousel-container {
     position: relative;
+    width:120%;
     display:flex;
     bottom: 50px;
+    right: 10%;
     justify-content:center;
     overflow:hidden;
   }
@@ -521,6 +523,7 @@ html, body {
     position: relative;
     border-top: 5px solid #2880D1;
   }
+
 </style>
 <script>
   let my_callback_url = "[[=XML(my_callback_url)]]";

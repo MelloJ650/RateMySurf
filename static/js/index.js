@@ -44,11 +44,11 @@ let init = (app) => {
         imageIndex: 0,
         imageNextIndex: 1,
         carouselImages: [
-            'Assets/SurfPhoto1.png',
-            'Assets/SurfPhoto2.png',
-            'Assets/SurfPhoto3.png',
-            'Assets/SurfPhoto4.png',
-            'Assets/SurfPhoto5.png',
+            'https://drive.google.com/uc?export=view&id=1VZgJ3bekxNfSW0H814Dd0wLBz29f9yph',
+            'https://drive.google.com/uc?export=view&id=10oiQcD1nU9wSdryN9r08AAZ9lI8fWKfv',
+            'https://drive.google.com/uc?export=view&id=1IWc3K6Zk5fGsejMJV3mz0xhb641Qa7AN',
+            'https://drive.google.com/uc?export=view&id=1ei9DvjwrsHBO5HgAatizXMYCFk3VkOoi',
+            'https://drive.google.com/uc?export=view&id=1exakTtk-L-mLCwQlxXhlmy-5vUM6hKZQ',
         ],
     };
 
