@@ -33,7 +33,23 @@ let init = (app) => {
         is_county: false,
         //api var
         info_api: [],
-        loaded_api: false
+        loaded_api: false,
+
+        //animation variables
+        bounce: false,
+        slide: false,
+        fade: false,
+        changeNextIndex: true,
+        countyMenuAnimate: false,
+        imageIndex: 0,
+        imageNextIndex: 1,
+        carouselImages: [
+            'https://drive.google.com/uc?export=view&id=1VZgJ3bekxNfSW0H814Dd0wLBz29f9yph',
+            'https://drive.google.com/uc?export=view&id=10oiQcD1nU9wSdryN9r08AAZ9lI8fWKfv',
+            'https://drive.google.com/uc?export=view&id=1IWc3K6Zk5fGsejMJV3mz0xhb641Qa7AN',
+            'https://drive.google.com/uc?export=view&id=1ei9DvjwrsHBO5HgAatizXMYCFk3VkOoi',
+            'https://drive.google.com/uc?export=view&id=1exakTtk-L-mLCwQlxXhlmy-5vUM6hKZQ',
+        ],
     };
 
 
@@ -142,7 +158,7 @@ let init = (app) => {
         axios.get(load_beaches_url, {params: {id: id}}).then(function (response) {
             app.vue.county_beaches = app.enumerate(response.data.county_beaches);
         });
-        // new addition that assists in search bar implementation
+        // addition that assists in search bar implementation
         app.vue.is_county = true;
     };
 
@@ -308,6 +324,29 @@ let init = (app) => {
         });
     };
 
+    app.set_county_animation = function (county_idx){
+        if (app.data.countyMenuAnimate){
+            app.data.countyMenuAnimate = false;
+            setTimeout(function() {app.set_county(county_idx)}, 500);
+            setTimeout(function() {app.data.countyMenuAnimate = true;}, 600)
+        } else{
+            app.set_county(county_idx);
+            setTimeout(function() {app.data.countyMenuAnimate = true;}, 100)
+        }
+    }
+
+    app.next_slide_animation = function (){
+        app.data.slide = !app.data.slide;
+        setTimeout(function() {
+            if(app.data.changeNextIndex){
+                app.data.imageNextIndex = (app.data.imageIndex + 1) % app.data.carouselImages.length;
+            }else{
+                app.data.imageIndex = (app.data.imageNextIndex + 1) % app.data.carouselImages.length;
+            }
+            app.data.changeNextIndex = !app.data.changeNextIndex;
+        }, 2000);
+        setTimeout(function() {app.next_slide_animation();}, 6000);
+    }
 
     // This contains all the methods.
     app.methods = {
@@ -326,7 +365,10 @@ let init = (app) => {
         delete_review: app.delete_review,
         load_api: app.load_api,
         get_api: app.get_api,
-        set_api: app.set_api
+        set_api: app.set_api,
+        //animation methods
+        set_county_animation: app.set_county_animation,
+        next_slide_animation: app.next_slide_animation,
     };
 
 
@@ -344,6 +386,9 @@ let init = (app) => {
         // Typically this is a server GET call to load the data.
         axios.get(load_counties_url).then(function (response) {
             app.vue.counties = app.enumerate(response.data.counties);
+            app.data.bounce = true;
+            app.data.fade = true;
+            app.next_slide_animation();
         });
     };
 

@@ -64,8 +64,8 @@ def load_counties():
 @action('load_beaches')
 @action.uses(db, url_signer.verify())
 def load_beaches():
-    id = request.params.get('id')
-    county_beaches = db(db.beaches.county_reference_id == id).select().as_list()
+    cid = request.params.get('id')
+    county_beaches = db(db.beaches.county_reference_id == cid).select().as_list()
     return dict(county_beaches=county_beaches)
 
 @action('load_reviews')
